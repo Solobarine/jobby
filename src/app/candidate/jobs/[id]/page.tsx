@@ -5,9 +5,10 @@ import { getJobById } from "@/app/actions/jobAction";
 export default async function JobDetailsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const job = await getJobById(Number.parseInt(params.id));
+  const id = (await params).id;
+  const job = await getJobById(Number.parseInt(id));
 
   if (!job) {
     notFound();
