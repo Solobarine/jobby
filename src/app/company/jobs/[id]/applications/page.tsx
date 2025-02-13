@@ -5,9 +5,9 @@ import { notFound } from "next/navigation";
 export default async function ManageApplicationsPage({
   params,
 }: {
-  params: { id: string };
+  params: Promise<{ id: string }>;
 }) {
-  const jobId = Number.parseInt(params.id);
+  const jobId = parseInt((await params).id);
   const [job, applications] = await Promise.all([
     getJobById(jobId),
     getApplicationsByJobId(jobId),
