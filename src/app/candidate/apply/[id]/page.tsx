@@ -5,11 +5,7 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { createApplication } from "@/app/actions/applicationAction";
 
-export default function ApplyNowPage({
-  params,
-}: {
-  params: { jobId: string };
-}) {
+export default function ApplyNowPage({ params }: { params: { id: string } }) {
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -30,7 +26,7 @@ export default function ApplyNowPage({
     try {
       await createApplication({
         ...formData,
-        jobId: Number.parseInt(params.jobId),
+        jobId: Number.parseInt(params.id),
       });
       router.push("/candidate/application-submitted");
     } catch (error) {
