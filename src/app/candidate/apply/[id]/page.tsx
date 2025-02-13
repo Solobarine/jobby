@@ -2,10 +2,12 @@
 
 import type React from "react";
 import { useState } from "react";
-import { useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation";
 import { createApplication } from "@/app/actions/applicationAction";
 
-export default function ApplyNowPage({ params }: { params: { id: string } }) {
+export default function ApplyNowPage() {
+  const { id } = useParams();
+
   const router = useRouter();
   const [formData, setFormData] = useState({
     name: "",
@@ -26,7 +28,7 @@ export default function ApplyNowPage({ params }: { params: { id: string } }) {
     try {
       await createApplication({
         ...formData,
-        jobId: Number.parseInt(params.id),
+        jobId: Number.parseInt(id as string),
       });
       router.push("/candidate/application-submitted");
     } catch (error) {
